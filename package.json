@@ -1,0 +1,32 @@
+{
+  "name": "@farreldarian/magic-wagmi-connector",
+  "version": "0.1.0",
+  "description": "Wagmi connector for Magic connect.",
+  "source": "src/index.ts",
+  "main": "dist/main.js",
+  "module": "dist/module.js",
+  "types": "dist/types.d.ts",
+  "type": "module",
+  "scripts": {
+    "watch": "parcel watch",
+    "build": "parcel build"
+  },
+  "keywords": [
+    "magic",
+    "wagmi"
+  ],
+  "author": "farreldarian",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/farreldarian/magic-wagmi-connector.git"
+  },
+  "devDependencies": {
+    "@parcel/packager-ts": "^2.7.0",
+    "@parcel/transformer-typescript-types": "^2.7.0",
+    "parcel": "^2.7.0",
+    "prettier": "^2.7.1",
+    "prettier-plugin-organize-imports": "^3.1.1",
+    "typescript": "^4.8.4"
+  }
+}
