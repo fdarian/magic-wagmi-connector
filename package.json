@@ -1,5 +1,5 @@
 {
-  "name": "@farreldarian/magic-wagmi-connector",
+  "name": "magic-wagmi-connector",
   "version": "0.1.0",
   "description": "Wagmi connector for Magic connect.",
   "source": "src/index.ts",
