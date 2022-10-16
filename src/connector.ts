@@ -162,6 +162,15 @@ export class MagicConnector extends Connector<
     }
   }
 
+  async disconnect(): Promise<void> {
+    const magic = this.getSdk()
+    await magic.connect.disconnect()
+
+    this._provider?.removeListener('accountsChanged', this.onAccountsChanged)
+    this._provider?.removeListener('chainChanged', this.onChainChanged)
+    this._provider?.removeListener('disconnect', this.onDisconnect)
+  }
+
   protected onAccountsChanged(accounts: string[]): void {
     if (accounts.length === 0) this.emit('disconnect')
     else this.emit('change', { account: getAddress(accounts[0]) })
@@ -175,15 +184,6 @@ export class MagicConnector extends Connector<
 
   protected onDisconnect(): void {
     this.emit('disconnect')
-  }
-
-  async disconnect(): Promise<void> {
-    const magic = this.getSdk()
-    await magic.connect.disconnect()
-
-    this._provider?.removeListener('accountsChanged', this.onAccountsChanged)
-    this._provider?.removeListener('chainChanged', this.onChainChanged)
-    this._provider?.removeListener('disconnect', this.onDisconnect)
   }
 
   private getSdk(config: Config = {}) {
