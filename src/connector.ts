@@ -167,13 +167,13 @@ export class MagicConnector extends Connector<
     else this.emit('change', { account: getAddress(accounts[0]) })
   }
 
-  onChainChanged(chainId: string | number): void {
+  protected onChainChanged(chainId: string | number): void {
     const id = normalizeChainId(chainId)
     const unsupported = this.isChainUnsupported(id)
     this.emit('change', { chain: { id, unsupported } })
   }
 
-  onDisconnect(): void {
+  protected onDisconnect(): void {
     this.emit('disconnect')
   }
 
