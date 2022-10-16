@@ -15,6 +15,9 @@
     "magic",
     "wagmi"
   ],
+  "engines": {
+    "node": ">=12"
+  },
   "author": "farreldarian",
   "license": "MIT",
   "repository": {
