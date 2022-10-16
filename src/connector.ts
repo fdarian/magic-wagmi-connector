@@ -1,4 +1,4 @@
-import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers'
+import { Web3Provider } from '@ethersproject/providers'
 import { ConnectExtension } from '@magic-ext/connect'
 import type { InstanceWithExtensions, SDKBase } from '@magic-sdk/provider'
 import {
@@ -43,14 +43,12 @@ type Config = {
   chainId?: number
 }
 
-export class MagicConnector extends Connector<
-  Web3Provider,
-  MagicConnectorOptions,
-  JsonRpcSigner
-> {
+export class MagicConnector extends Connector {
   readonly ready = !IS_SERVER
   readonly id = 'magic'
   readonly name = 'Magic'
+
+  options: MagicConnectorOptions
 
   private _provider?: Web3Provider
   private _magicSdk?: MagicSdk
