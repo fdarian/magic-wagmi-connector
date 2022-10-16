@@ -169,22 +169,7 @@ export class MagicConnector extends Connector {
     this._provider?.removeListener('disconnect', this.onDisconnect)
   }
 
-  protected onAccountsChanged(accounts: string[]): void {
-    if (accounts.length === 0) this.emit('disconnect')
-    else this.emit('change', { account: getAddress(accounts[0]) })
-  }
-
-  protected onChainChanged(chainId: string | number): void {
-    const id = normalizeChainId(chainId)
-    const unsupported = this.isChainUnsupported(id)
-    this.emit('change', { chain: { id, unsupported } })
-  }
-
-  protected onDisconnect(): void {
-    this.emit('disconnect')
-  }
-
-  private getSdk(config: Config = {}) {
+  getSdk(config: Config = {}) {
     if (this._magicSdk == null) {
       const optedChainId = config.chainId ?? this.options.chainId
       const chain =
@@ -201,6 +186,21 @@ export class MagicConnector extends Connector {
       })
     }
     return this._magicSdk
+  }
+
+  protected onAccountsChanged(accounts: string[]): void {
+    if (accounts.length === 0) this.emit('disconnect')
+    else this.emit('change', { account: getAddress(accounts[0]) })
+  }
+
+  protected onChainChanged(chainId: string | number): void {
+    const id = normalizeChainId(chainId)
+    const unsupported = this.isChainUnsupported(id)
+    this.emit('change', { chain: { id, unsupported } })
+  }
+
+  protected onDisconnect(): void {
+    this.emit('disconnect')
   }
 
   private getChain(chainId: number) {
