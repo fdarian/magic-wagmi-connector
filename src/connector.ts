@@ -18,7 +18,6 @@ import { Magic, MagicSDKAdditionalConfiguration } from 'magic-sdk'
 const IS_SERVER = typeof window === 'undefined'
 
 export type MagicSdkOptions = {
-  apiKey: string
   accentColor?: string
   isDarkMode?: boolean
   customLogo?: string
