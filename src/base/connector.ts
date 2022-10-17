@@ -47,7 +47,7 @@ export type BaseMagicSdk<
   TExtension extends Extension<TName> = any
 > = InstanceWithExtensions<SDKBase, TExtension[]>
 
-export type BaseConnectorConfig = {
+export type BaseConnectorConnectConfig = {
   chainId?: number
 }
 
@@ -92,7 +92,7 @@ export abstract class BaseMagicConnector<
 
   protected abstract getExtension(): TExtension
 
-  async connect(config: BaseConnectorConfig = {}) {
+  async connect(config: BaseConnectorConnectConfig = {}) {
     try {
       if (this.internalConnectOptions.emitConnecting) {
         this.emit('message', { type: 'connecting' })
@@ -130,7 +130,7 @@ export abstract class BaseMagicConnector<
     return getAddress(await signer.getAddress())
   }
 
-  async getProvider(config: BaseConnectorConfig = {}) {
+  async getProvider(config: BaseConnectorConnectConfig = {}) {
     if (this._provider == null) {
       const magic = this.getSdk(config)
       this._provider = new Web3Provider(
@@ -202,7 +202,7 @@ export abstract class BaseMagicConnector<
     this._provider?.removeListener('disconnect', this.onDisconnect)
   }
 
-  getSdk(config: BaseConnectorConfig = {}) {
+  getSdk(config: BaseConnectorConnectConfig = {}) {
     if (this._magicSdk == null) {
       const optedChainId = config.chainId ?? this.options.chainId
       const chain =
