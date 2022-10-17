@@ -2,6 +2,5 @@
   "main": "../dist/connect/index.js",
   "types": "../dist/connect/index.d.ts",
   "peerDependencies": {
-    "@magic-ext/connect": "^3.0.0"
   }
 }
