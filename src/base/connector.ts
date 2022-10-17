@@ -202,6 +202,31 @@ export abstract class BaseMagicConnector<
     this._provider?.removeListener('disconnect', this.onDisconnect)
   }
 
+  async watchAsset({
+    address,
+    decimals = 18,
+    image,
+    symbol,
+  }: {
+    address: string
+    decimals?: number
+    image?: string
+    symbol: string
+  }) {
+    const provider = await this.getProvider()
+    return provider.send('wallet_watchAsset', [
+      {
+        type: 'ERC20',
+        options: {
+          address,
+          decimals,
+          image,
+          symbol,
+        },
+      },
+    ])
+  }
+
   getSdk(chainId?: number) {
     if (this._magicSdk == null) {
       return this.initSdk(chainId)
