@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@magic-ext/connect": "^3.0.0",
+    "@magic-ext/oauth": "^4.0.0",
     "@magic-sdk/provider": "^10.0.0",
     "magic-sdk": "^10.0.0"
   },
