@@ -1,6 +1,6 @@
 import type { OAuthProvider } from '@magic-ext/oauth'
 import { OAuthExtension } from '@magic-ext/oauth'
-import { UserRejectedRequestError } from '@wagmi/core'
+import { Chain, UserRejectedRequestError } from '@wagmi/core'
 import type {
   BaseConnectorConnectConfig,
   BaseConnectorConstructorArgs,
@@ -105,6 +105,13 @@ export class MagicOAuthConnector<
 
   async isAuthorized() {
     return this.getSdk().user.isLoggedIn()
+  }
+
+  async switchChain(chainId: number): Promise<Chain> {
+    await this.disconnect()
+    this.initSdk(chainId)
+    await this.connect({ chainId })
+    return this.getChain(chainId)
   }
 
   protected getExtension() {
