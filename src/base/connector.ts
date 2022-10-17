@@ -47,25 +47,37 @@ export type BaseMagicSdk<
   TExtension extends Extension<TName> = any
 > = InstanceWithExtensions<SDKBase, TExtension[]>
 
-export type BaseConnectorConstructorArgs<
-  TName extends string = string,
-  TExtension extends Extension<TName> = any
-> = {
-  chains: Chain[]
-  options: BaseMagicConnectorOptions<TName, TExtension>
-}
-
 export type BaseConnectorConfig = {
   chainId?: number
 }
 
+export type BaseConnectorConstructorArgs<
+  TName extends string = string,
+  TExtension extends Extension<TName> = any,
+  TOptions extends BaseMagicConnectorOptions<
+    TName,
+    TExtension
+  > = BaseMagicConnectorOptions<TName, TExtension>
+> = {
+  chains: Chain[]
+  options: TOptions
+}
+
 export abstract class BaseMagicConnector<
   TName extends string = string,
-  TExtension extends Extension<TName> = any
+  TExtension extends Extension<TName> = any,
+  TOptions extends BaseMagicConnectorOptions<
+    TName,
+    TExtension
+  > = BaseMagicConnectorOptions<TName, TExtension>
 > extends Connector {
   readonly ready = typeof window !== 'undefined'
 
-  options: BaseMagicConnectorOptions<TName, TExtension>
+  options: TOptions
+
+  protected internalConnectOptions = {
+    emitConnecting: true,
+  }
 
   private _provider?: Web3Provider
   private _magicSdk?: BaseMagicSdk<TName, TExtension>
@@ -73,7 +85,7 @@ export abstract class BaseMagicConnector<
   constructor({
     chains: _chains,
     options,
-  }: BaseConnectorConstructorArgs<TName, TExtension>) {
+  }: BaseConnectorConstructorArgs<TName, TExtension, TOptions>) {
     const chains = _chains.length === 0 ? [chain.mainnet] : _chains
     super({ chains, options })
   }
@@ -82,7 +94,9 @@ export abstract class BaseMagicConnector<
 
   async connect(config: BaseConnectorConfig = {}) {
     try {
-      this.emit('message', { type: 'connecting' })
+      if (this.internalConnectOptions.emitConnecting) {
+        this.emit('message', { type: 'connecting' })
+      }
 
       // This would also initialize the SDK and the provider.
       const provider = await this.getProvider({ chainId: config.chainId })
