@@ -2,8 +2,6 @@ lockfileVersion: 5.4
 
 specifiers:
   '@ethersproject/providers': ^5.0.0
-  '@magic-ext/connect': ^3.0.0
-  '@magic-ext/oauth': ^4.0.0
   '@magic-sdk/provider': ^10.0.0
   '@swc/cli': ^0.1.57
   '@swc/core': ^1.3.8
@@ -17,8 +15,6 @@ specifiers:
 
 dependencies:
   '@ethersproject/providers': 5.7.1
-  '@magic-ext/connect': 3.0.0
-  '@magic-ext/oauth': 4.0.0
   '@magic-sdk/provider': 10.0.0_localforage@1.10.0
   '@wagmi/core': 0.5.8_ethers@5.7.1+react@18.2.0
   ethers: 5.7.1
@@ -354,16 +350,6 @@ packages:
       '@ethersproject/logger': 5.7.0
       '@ethersproject/properties': 5.7.0
       '@ethersproject/strings': 5.7.0
-    dev: false
-
-  /@magic-ext/connect/3.0.0:
-    resolution: {integrity: sha512-tx5VTk74f4NjNsjb/FgdpnEP8iiw1yE/IumXQmPBBkyLp1/YKADFK7o+vQcI56/80s/hEOftPAa+dP4DY7truw==}
-    dev: false
-
-  /@magic-ext/oauth/4.0.0:
-    resolution: {integrity: sha512-R7QxaSRfBIulBs/4iO9lVnTnhncqIe2h2jWBPRiDmUwIxPl+H38O/6vc0cHYTnyvIG3cRRNaRqdRqB2MQXuveA==}
-    dependencies:
-      '@magic-sdk/types': 9.0.0
     dev: false
 
   /@magic-sdk/commons/6.0.0_ewkq73huh722dlygbcoqewdz6i:

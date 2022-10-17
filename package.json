@@ -31,9 +31,7 @@
   "peerDependencies": {
     "@ethersproject/providers": "^5.0.0",
     "@wagmi/core": "^0.5.0",
-    "ethers": "^5.0.0",
-    "@magic-ext/connect": "^3.0.0",
-    "@magic-ext/oauth": "^4.0.0"
+    "ethers": "^5.0.0"
   },
   "devDependencies": {
     "@swc/cli": "^0.1.57",
