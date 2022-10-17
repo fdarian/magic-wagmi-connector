@@ -132,7 +132,7 @@ export abstract class BaseMagicConnector<
 
   async getProvider(config: BaseConnectorConnectConfig = {}) {
     if (this._provider == null) {
-      const magic = this.getSdk(config)
+      const magic = this.getSdk(config.chainId)
       this._provider = new Web3Provider(
         magic.rpcProvider as any,
         config.chainId ?? (await this.getChainId())
@@ -202,23 +202,27 @@ export abstract class BaseMagicConnector<
     this._provider?.removeListener('disconnect', this.onDisconnect)
   }
 
-  getSdk(config: BaseConnectorConnectConfig = {}) {
+  getSdk(chainId?: number) {
     if (this._magicSdk == null) {
-      const optedChainId = config.chainId ?? this.options.chainId
-      const chain =
-        // chains will always have at least one element, enforced in constructor
-        optedChainId == null ? this.chains[0] : this.getChain(optedChainId)
-
-      this._magicSdk = new Magic(this.options.apiKey, {
-        network: {
-          rpcUrl: chain.rpcUrls.default ?? chain.rpcUrls.public,
-          chainId: chain.id,
-        },
-        extensions: [this.getExtension()],
-        ...this.options.additionalOptions,
-      })
+      return this.initSdk(chainId)
     }
     return this._magicSdk
+  }
+
+  protected initSdk(chainId?: number) {
+    const optedChainId = chainId ?? this.options.chainId
+    const chain =
+      // chains will always have at least one element, enforced in constructor
+      optedChainId == null ? this.chains[0] : this.getChain(optedChainId)
+
+    return (this._magicSdk = new Magic(this.options.apiKey, {
+      network: {
+        rpcUrl: chain.rpcUrls.default ?? chain.rpcUrls.public,
+        chainId: chain.id,
+      },
+      extensions: [this.getExtension()],
+      ...this.options.additionalOptions,
+    }))
   }
 
   protected onAccountsChanged(accounts: string[]): void {

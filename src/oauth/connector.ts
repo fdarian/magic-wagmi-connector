@@ -72,7 +72,7 @@ export class MagicOAuthConnector<
     this.emit('message', { type: 'connecting' })
 
     // Initializes SDK (if null) for every `this.getSdk()` calls
-    this.getSdk({ chainId })
+    this.getSdk(chainId)
 
     if (await this.isAuthorized()) {
       return super.connect({ chainId })
