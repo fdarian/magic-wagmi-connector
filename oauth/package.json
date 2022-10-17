@@ -1,0 +1,4 @@
+{
+  "main": "../dist/oauth/index.js",
+  "types": "../dist/oauth/index.d.ts"
+}
