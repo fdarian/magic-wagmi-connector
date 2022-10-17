@@ -240,7 +240,7 @@ export abstract class BaseMagicConnector<
     this.emit('disconnect')
   }
 
-  private getChain(chainId: number) {
+  protected getChain(chainId: number) {
     const chain = this.chains.find((chain) => chain.id === chainId)
     if (chain != null) return chain
     throw new ChainNotConfiguredError()
