@@ -7,7 +7,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "concurrently \"pnpm compile --watch\" \"pnpm typegen --watch\"",
-    "build": "concurrently \"pnpm compile\" \"pnpm typegen\"",
+    "build": "pnpm clean && concurrently \"pnpm compile\" \"pnpm typegen\"",
+    "clean": "rimraf -r dist",
     "compile": "swc ./src -d dist",
     "typegen": "tsc --emitDeclarationOnly"
   },
@@ -25,8 +26,8 @@
     "url": "git+https://github.com/farreldarian/magic-wagmi-connector.git"
   },
   "dependencies": {
-    "@magic-ext/oauth": "^4.0.0",
     "@magic-ext/connect": "^3.0.0",
+    "@magic-ext/oauth": "^4.0.0",
     "@magic-sdk/provider": "^10.0.0",
     "magic-sdk": "^10.0.0"
   },
@@ -41,6 +42,7 @@
     "concurrently": "^7.4.0",
     "prettier": "^2.7.1",
     "prettier-plugin-organize-imports": "^3.1.1",
+    "rimraf": "^3.0.2",
     "typescript": "4.7.4"
   }
 }
