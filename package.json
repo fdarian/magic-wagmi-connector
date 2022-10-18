@@ -5,11 +5,12 @@
   "source": "src/index.ts",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
     "dev": "concurrently \"pnpm compile --watch\" \"pnpm typegen --watch\"",
     "build": "pnpm clean && concurrently \"pnpm compile\" \"pnpm typegen\"",
     "clean": "rimraf -r dist",
-    "compile": "swc ./src -d dist",
+    "compile": "node build",
     "typegen": "tsc --emitDeclarationOnly"
   },
   "keywords": [
@@ -37,9 +38,8 @@
     "ethers": "^5.0.0"
   },
   "devDependencies": {
-    "@swc/cli": "^0.1.57",
-    "@swc/core": "^1.3.8",
     "concurrently": "^7.4.0",
+    "esbuild": "^0.15.11",
     "prettier": "^2.7.1",
     "prettier-plugin-organize-imports": "^3.1.1",
     "rimraf": "^3.0.2",
