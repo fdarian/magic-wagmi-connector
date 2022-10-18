@@ -1,14 +1,11 @@
 // Reference: https://github.com/souporserious/bundling-typescript-with-esbuild-for-npm
 
 import { build } from 'esbuild'
-// const { dependencies } = require('./package.json')
+import pkg from './package.json' assert { type: 'json' }
 
-const entryFile = 'src/index.ts'
 const shared = {
-  // bundle: true,
+  bundle: true,
   format: 'esm',
-  entryPoints: [entryFile],
-  // external: Object.keys(dependencies),
   logLevel: 'info',
   platform: 'browser',
   minify: true,
@@ -17,28 +14,26 @@ const shared = {
   target: ['esnext', 'node12.22.0'],
 }
 
-// Index
 build({
   ...shared,
-  format: 'esm',
+  entryPoints: ['./src/index.ts'],
+  external: Object.keys(pkg.dependencies),
   outdir: './dist',
 })
 
 // oauth
 build({
   ...shared,
-  entryPoints: ['src/oauth/index.ts'],
-  // external: ['@magic-ext/oauth', '@magic-sdk/provider', 'magic-sdk'],
-  format: 'esm',
+  entryPoints: ['./src/oauth/index.ts'],
+  external: ['@magic-ext/oauth', '@magic-sdk/provider', 'magic-sdk'],
   outdir: './dist/oauth',
 })
 
 // connect
 build({
   ...shared,
-  entryPoints: ['src/connect/index.ts'],
-  // external: ['@magic-ext/connect', '@magic-sdk/provider', 'magic-sdk'],
-  format: 'esm',
+  entryPoints: ['./src/connect/index.ts'],
+  external: ['@magic-ext/connect', '@magic-sdk/provider', 'magic-sdk'],
   outdir: './dist/connect',
 })
 
@@ -47,17 +42,15 @@ build({
 // oauth
 build({
   ...shared,
-  entryPoints: ['src/rainbowkit/oauth/index.ts'],
-  // external: ['@magic-ext/oauth', '@magic-sdk/provider', 'magic-sdk'],
-  format: 'esm',
+  entryPoints: ['./src/rainbowkit/oauth/index.ts'],
+  external: ['@magic-ext/oauth', '@magic-sdk/provider', 'magic-sdk'],
   outdir: './dist/rainbowkit/oauth',
 })
 
 // connect
 build({
   ...shared,
-  entryPoints: ['src/rainbowkit/connect/index.ts'],
-  // external: ['@magic-ext/connect', '@magic-sdk/provider', 'magic-sdk'],
-  format: 'esm',
+  entryPoints: ['./src/rainbowkit/connect/index.ts'],
+  external: ['@magic-ext/connect', '@magic-sdk/provider', 'magic-sdk'],
   outdir: './dist/rainbowkit/connect',
 })
