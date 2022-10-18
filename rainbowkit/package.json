@@ -1,4 +1,0 @@
-{
-  "main": "../dist/rainbowkit/index.js",
-  "types": "../dist/rainbowkit/index.d.ts"
-}

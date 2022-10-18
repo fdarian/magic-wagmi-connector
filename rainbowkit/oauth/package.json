@@ -1,0 +1,4 @@
+{
+  "main": "../dist/rainbowkit/oauth/index.js",
+  "types": "../dist/rainbowkit/oauth/index.d.ts"
+}
