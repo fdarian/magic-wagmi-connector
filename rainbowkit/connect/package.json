@@ -1,4 +1,4 @@
 {
-  "main": "../dist/rainbowkit/connect/index.js",
-  "types": "../dist/rainbowkit/connect/index.d.ts"
+  "main": "../../dist/rainbowkit/connect/index.js",
+  "types": "../../dist/rainbowkit/connect/index.d.ts"
 }
