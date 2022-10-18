@@ -1,7 +1,6 @@
 // Reference: https://github.com/souporserious/bundling-typescript-with-esbuild-for-npm
 
 import { build } from 'esbuild'
-import pkg from './package.json' assert { type: 'json' }
 
 const shared = {
   bundle: true,
@@ -12,12 +11,23 @@ const shared = {
   sourcemap: true,
   splitting: true,
   target: ['esnext', 'node12.22.0'],
+  plugins: [
+    {
+      name: 'make-all-packages-external',
+      setup(build) {
+        let filter = /^[^./]|^\.[^./]|^\.\.[^/]/ // Must not start with "/" or "./" or "../"
+        build.onResolve({ filter }, (args) => ({
+          external: true,
+          path: args.path,
+        }))
+      },
+    },
+  ],
 }
 
 build({
   ...shared,
   entryPoints: ['./src/index.ts'],
-  external: Object.keys(pkg.dependencies),
   outdir: './dist',
 })
 
@@ -25,7 +35,6 @@ build({
 build({
   ...shared,
   entryPoints: ['./src/oauth/index.ts'],
-  external: ['@magic-ext/oauth', '@magic-sdk/provider', 'magic-sdk'],
   outdir: './dist/oauth',
 })
 
@@ -33,7 +42,6 @@ build({
 build({
   ...shared,
   entryPoints: ['./src/connect/index.ts'],
-  external: ['@magic-ext/connect', '@magic-sdk/provider', 'magic-sdk'],
   outdir: './dist/connect',
 })
 
@@ -43,7 +51,6 @@ build({
 build({
   ...shared,
   entryPoints: ['./src/rainbowkit/oauth/index.ts'],
-  external: ['@magic-ext/oauth', '@magic-sdk/provider', 'magic-sdk'],
   outdir: './dist/rainbowkit/oauth',
 })
 
@@ -51,6 +58,5 @@ build({
 build({
   ...shared,
   entryPoints: ['./src/rainbowkit/connect/index.ts'],
-  external: ['@magic-ext/connect', '@magic-sdk/provider', 'magic-sdk'],
   outdir: './dist/rainbowkit/connect',
 })
