@@ -1,6 +1,6 @@
 {
   "name": "magic-wagmi-connector",
-  "version": "0.4.1-beta",
+  "version": "0.5.0-beta",
   "description": "Wagmi connector for Magic connect.",
   "source": "src/index.ts",
   "main": "dist/index.js",
