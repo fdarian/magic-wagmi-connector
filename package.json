@@ -8,7 +8,8 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"pnpm compile --watch\" \"pnpm typegen --watch\"",
-    "build": "pnpm clean && concurrently \"pnpm compile\" \"pnpm typegen\"",
+    "build": "concurrently \"pnpm compile\" \"pnpm typegen\"",
+    "prepublish": "pnpm clean && pnpm build",
     "clean": "rimraf -r dist",
     "compile": "node build",
     "typegen": "tsc --emitDeclarationOnly"
