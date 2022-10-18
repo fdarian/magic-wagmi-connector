@@ -10,7 +10,6 @@ const shared = {
   minify: true,
   sourcemap: true,
   splitting: true,
-  target: ['esnext', 'node12.22.0'],
   plugins: [
     {
       name: 'make-all-packages-external',
